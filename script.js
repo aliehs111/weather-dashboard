@@ -1,31 +1,10 @@
-$(document).ready(function() {
+
 
 // Global variables
 var searchHistory = [];
 var weatherApiRootUrl = 'https://api.openweathermap.org';
 var weatherApiKey = '4307d74e4977cb51bc4d392a5c8c2e3c';
-let coords = [];
 
-$ajax({
-url: weatherApiRootUrl,
-method: "GET",
-}).then(function (response){
-  console.log(response) 
-  // {
-//     coords.push(response.coord.lat);
-//     coords.push(response.coord.lon);
-//     let cityName = response.name;
-//     let cityCond = response.weather[0].description.toUpperCase();
-//     let cityTemp = response.main.temp;
-//     let cityWind = response.main.humidity;
-//     let icon = response.weather[0].icon;
-//     $("#icon").html(
-//       <img src = "https:openweather.org/img/wn/${icon}@2x.png"></img>
-//     )
-//   }
-// });
-
-});
 
 
 // DOM element references
@@ -48,7 +27,7 @@ function renderSearchHistory() {
     var btn = document.createElement('button');
     btn.setAttribute('type', 'button');
     btn.setAttribute('aria-controls', 'today forecast');
-    btn.classList.add('history-btn', 'btn-history');
+    btn.classList.add('btn-history', 'list-group-item', 'mt-2', 'mb-2', 'list-group-item-secondary');
 
     // `data-search` allows access to city name when click handler is invoked
     btn.setAttribute('data-search', searchHistory[i]);
@@ -145,7 +124,7 @@ function renderForecastCard(forecast) {
 
   col.setAttribute('class', 'col-md');
   col.classList.add('five-day-card');
-  card.setAttribute('class', 'card bg-primary h-100 text-white');
+  card.setAttribute('class', 'card bg-dark h-100 text-white');
   cardBody.setAttribute('class', 'card-body p-2');
   cardTitle.setAttribute('class', 'card-title');
   tempEl.setAttribute('class', 'card-text');
@@ -251,7 +230,6 @@ function handleSearchFormSubmit(e) {
 }
 
 function handleSearchHistoryClick(e) {
-  // Don't do search if current elements is not a search history button
   if (!e.target.matches('.btn-history')) {
     return;
   }
@@ -264,4 +242,3 @@ function handleSearchHistoryClick(e) {
 initSearchHistory();
 searchForm.addEventListener('submit', handleSearchFormSubmit);
 searchHistoryContainer.addEventListener('click', handleSearchHistoryClick);
-});
